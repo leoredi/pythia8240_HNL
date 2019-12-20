@@ -1,26 +1,23 @@
 # Updated version of Pythia8: Heavy Neutral Lepton's polarized decay
 
 
-This is a modified version of Pythia8.240. It incorporates the production of a new type of particle (ID: 9900015), that can be produced. The xml file can be further fulfilled by different production channels. The decay channels of the HNL are let to be defined for the user. The main production and decay channels, as well as their decay width formulas, can be found in [arXiv:]. The implementation in a cxx environment can be found for example in [https://github.com/f-thiele/cHNLdecay]. A branch from sonia211, adding other features such as production channels from B hadrons, is currently WIP.
-
+This is a modified version of Pythia8.240. It incorporates the production of heavy neutral leptons via the definition of a new particle (ID: 9900015). The decay channels of the HNL are let to be defined by the user. The main production and decay channels, as well as their decay width formulas, can be found in [arXiv:]. The implementation in a cxx environment can be found for example in [https://github.com/f-thiele/cHNLdecay].
 
 
 ## Applied changes compared to original Pythia 8.240
 
-The list of addings is the following:
-
 ### File `src/HNLDecays.cc`
-The HNLDecays class is public TauDecays class and contains basically the same functions. Since tau and HNL are both leptons, most of the handling is similar. In the following there is a quick physics explanation.
+The HNLDecays class is based on the TauDecays class and contains basically the same functions. Since tau and HNL are both leptons, most of the handling is similar. 
 
-Assuming a B+ creates an HNL particle produced together with a positive muon. In the B rest frame, $\vec{p(\l+)} = -\vec{p(HNL)}$. More over chirality is conserved, so 1=chirality(l+)=-chirality(N). Thus, the polarisations are the same (say pol = +1). Then, if this HNL keeps its negative chirality, it decays into a negatively charged lepton l2- and some positively charged hadron (e.g. pi+). Now due to their pseudo-Dirac nature, they can flip in chirality state (leptonic number violation) and thus changes polarisation as well (pol = -1). In this case it will decays into a positively charred lepton l2+ and some negative hadron (e.g. pi-). In summary, the LNC/LNV nature of HNLs and their possibility to chsage their chirality can be complete driven, in most of cases, by the only polarisation. This was hopefully already coded for tau particles. 
+A brief physics explanation can be obtained  assuming a B+ creates an HNL particle produced together with a positive muon. In the B rest frame, $\vec{p(\l+)} = -\vec{p(HNL)}$. Moreover chirality is conserved, so 1=chirality(l+)=-chirality(N). Thus, the polarisations are the same (say pol = +1). Then, if this HNL keeps its negative chirality, it decays into a negatively charged lepton l2- and some positively charged hadron (e.g. pi+). Now due to their pseudo-Dirac nature, they can flip in chirality state (leptonic number violation) and thus changes polarisation as well (pol = -1). In this case it will decays into a positively charred lepton l2+ and some negative hadron (e.g. pi-). In summary, the LNC/LNV nature of HNLs and their possibility to chsage their chirality can be complete driven, in most of cases, by the only polarisation. This was hopefully already coded for tau particles. 
 
-The redefined mode are the following (l.80):
+The redefined modes are the following (l.80):
 * `mode("HNLDecays:externalMode”)`
 * `mode(“HNLDecays:mode")`
 * `mode("HNLDecays:HNLMother")`
 * `parm("HNLDecays:HNLPolarization")`
 
-In the case of one than more sister, the handling for the tau is kept, but with following preferred sisters:
+In the case of more than one sister particles, the handling for the tau is kept, but with the following preferred sisters:
 * Mu (ID 13)
 * HNL (ID 9900015)
 * Charged lepton (ID: 11, 15)
